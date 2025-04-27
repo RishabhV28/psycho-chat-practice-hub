@@ -1,4 +1,3 @@
-
 import { Brain } from "lucide-react";
 
 const Footer = () => {
@@ -8,7 +7,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center mb-4 md:mb-0">
             <Brain className="h-6 w-6 text-psycho-500" />
-            <span className="ml-2 text-lg font-medium text-gray-900">PsychoChat</span>
+            <span className="ml-2 text-lg font-medium text-gray-900">Psyclone</span>
           </div>
           <div className="flex flex-col md:flex-row md:space-x-8 text-center md:text-left">
             <a href="#" className="text-sm text-gray-500 hover:text-gray-900 mb-2 md:mb-0">
@@ -23,7 +22,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-6 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} PsychoChat. All rights reserved.
+          &copy; {new Date().getFullYear()} Psyclone. All rights reserved.
         </div>
       </div>
     </footer>

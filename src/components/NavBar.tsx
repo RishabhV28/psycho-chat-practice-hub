@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,7 @@ const NavBar = () => {
             <div className="flex-shrink-0 flex items-center">
               <Brain className="h-8 w-8 text-psycho-500" />
               <Link to="/" className="ml-2 text-xl font-bold text-psycho-700">
-                PsychoChat
+                Psyclone
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -60,7 +59,6 @@ const NavBar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="sm:hidden bg-white z-10 absolute w-full shadow-md">
           <div className="pt-2 pb-3 space-y-1">

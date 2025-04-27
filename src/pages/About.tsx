@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Brain, MessageCircle, User } from "lucide-react";
@@ -7,12 +6,12 @@ const About = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">About PsychoChat</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">About Psyclone</h1>
         
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-psycho-700 mb-4">Our Mission</h2>
           <p className="text-gray-700 mb-4">
-            PsychoChat was developed to provide psychology students and mental health professionals
+            Psyclone was developed to provide psychology students and mental health professionals
             with a safe, accessible platform to practice their therapeutic conversation skills.
             We believe that the best way to learn is through practice, and our AI-powered
             simulations allow users to gain confidence before working with real patients.

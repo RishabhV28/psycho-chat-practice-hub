@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Brain, Users, MessageCircle } from "lucide-react";
@@ -16,7 +15,7 @@ const Home = () => {
                   Practice Your Psychology Skills with AI Patients
                 </h1>
                 <p className="text-lg text-psycho-700 mb-8">
-                  PsychoChat helps psychology students develop their therapeutic conversation 
+                  Psyclone helps psychology students develop their therapeutic conversation 
                   skills through realistic simulated patient interactions.
                 </p>
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -64,7 +63,7 @@ const Home = () => {
         {/* Features Section */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">How PsychoChat Helps You</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">How Psyclone Helps You</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex flex-col items-center text-center">
                 <div className="bg-psycho-100 p-3 rounded-full mb-4">
