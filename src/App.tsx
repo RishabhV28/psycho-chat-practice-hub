@@ -10,25 +10,30 @@ import Scenarios from "./pages/Scenarios";
 import Chat from "./pages/Chat";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import { UserProgressProvider } from "./context/UserProgressContext";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="scenarios" element={<Scenarios />} />
-            <Route path="chat/:scenarioId" element={<Chat />} />
-            <Route path="about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <UserProgressProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="scenarios" element={<Scenarios />} />
+              <Route path="chat/:scenarioId" element={<Chat />} />
+              <Route path="about" element={<About />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserProgressProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

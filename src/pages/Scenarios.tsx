@@ -4,8 +4,9 @@ import ScenarioCard from "@/components/ScenarioCard";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useUserProgress } from "@/context/UserProgressContext";
 
-// Sample scenario data
+// Enhanced scenario data with difficulty levels and skill requirements
 const scenarios = [
   {
     id: "anxiety-disorder",
@@ -15,6 +16,7 @@ const scenarios = [
     difficulty: "Beginner" as const,
     tags: ["Anxiety", "CBT", "Assessment"],
     patientName: "Alex",
+    requiredSkillRating: 0
   },
   {
     id: "depression",
@@ -24,6 +26,7 @@ const scenarios = [
     difficulty: "Intermediate" as const,
     tags: ["Depression", "Mood", "Therapy"],
     patientName: "Jordan",
+    requiredSkillRating: 300
   },
   {
     id: "grief-counseling",
@@ -33,6 +36,7 @@ const scenarios = [
     difficulty: "Intermediate" as const,
     tags: ["Grief", "Loss", "Counseling"],
     patientName: "Morgan",
+    requiredSkillRating: 500
   },
   {
     id: "relationship-conflict",
@@ -42,6 +46,7 @@ const scenarios = [
     difficulty: "Advanced" as const,
     tags: ["Relationships", "Communication", "Conflict"],
     patientName: "Taylor",
+    requiredSkillRating: 700
   },
   {
     id: "substance-use",
@@ -51,18 +56,52 @@ const scenarios = [
     difficulty: "Advanced" as const,
     tags: ["Addiction", "Motivational Interviewing", "Assessment"],
     patientName: "Casey",
+    requiredSkillRating: 900
   },
+  {
+    id: "bipolar-disorder",
+    title: "Bipolar Disorder",
+    description: "Interact with a patient experiencing mood swings between mania and depression, discussing medication concerns.",
+    category: "Mood Disorders",
+    difficulty: "Advanced" as const,
+    tags: ["Bipolar", "Mood", "Medication Management"],
+    patientName: "Riley",
+    requiredSkillRating: 1200
+  },
+  {
+    id: "schizophrenia",
+    title: "Schizophrenia",
+    description: "Engage with a patient experiencing hallucinations and delusions while practicing reality testing techniques.",
+    category: "Psychotic Disorders",
+    difficulty: "Boss" as const,
+    tags: ["Psychosis", "Hallucinations", "Reality Testing"],
+    patientName: "Jamie",
+    requiredSkillRating: 1500
+  },
+  {
+    id: "borderline-personality",
+    title: "Borderline Personality Disorder",
+    description: "Help a patient with emotional dysregulation, identity disturbance, and fear of abandonment using DBT techniques.",
+    category: "Personality Disorders",
+    difficulty: "Boss" as const,
+    tags: ["BPD", "Emotional Regulation", "DBT"],
+    patientName: "Avery",
+    requiredSkillRating: 2000
+  }
 ];
 
 const Scenarios = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [showLocked, setShowLocked] = useState(true);
+  
+  const { skillRating } = useUserProgress();
 
   // Get unique categories for filter
   const categories = ["all", ...new Set(scenarios.map((s) => s.category))];
 
-  // Filter scenarios based on search and filters
+  // Filter scenarios based on search, filters, and locked status
   const filteredScenarios = scenarios.filter((scenario) => {
     const matchesSearch =
       scenario.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -76,8 +115,10 @@ const Scenarios = () => {
 
     const matchesCategory =
       categoryFilter === "all" || scenario.category === categoryFilter;
+      
+    const matchesLockStatus = showLocked || scenario.requiredSkillRating <= skillRating;
 
-    return matchesSearch && matchesDifficulty && matchesCategory;
+    return matchesSearch && matchesDifficulty && matchesCategory && matchesLockStatus;
   });
 
   return (
@@ -85,13 +126,14 @@ const Scenarios = () => {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Practice Scenarios</h1>
         <p className="text-gray-600">
-          Select a scenario to practice your therapeutic conversation skills with a simulated patient.
+          Select a scenario to practice your therapeutic conversation skills with a simulated patient. 
+          Unlock more challenging scenarios as your skill rating increases.
         </p>
       </div>
 
       {/* Filters */}
       <div className="mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
@@ -114,6 +156,7 @@ const Scenarios = () => {
               <SelectItem value="Beginner">Beginner</SelectItem>
               <SelectItem value="Intermediate">Intermediate</SelectItem>
               <SelectItem value="Advanced">Advanced</SelectItem>
+              <SelectItem value="Boss">Boss</SelectItem>
             </SelectContent>
           </Select>
 
@@ -132,6 +175,24 @@ const Scenarios = () => {
               ))}
             </SelectContent>
           </Select>
+          
+          <Select
+            value={showLocked ? "all" : "unlocked"}
+            onValueChange={(value) => setShowLocked(value === "all")}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Show locked scenarios" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Show All Scenarios</SelectItem>
+              <SelectItem value="unlocked">Show Unlocked Only</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        
+        <div className="mt-4 text-sm text-gray-600 flex items-center">
+          <span className="mr-2">Your current skill rating:</span> 
+          <strong className="text-psycho-600">{skillRating}</strong>
         </div>
       </div>
 
@@ -147,6 +208,7 @@ const Scenarios = () => {
               category={scenario.category}
               difficulty={scenario.difficulty}
               tags={scenario.tags}
+              requiredSkillRating={scenario.requiredSkillRating}
             />
           ))
         ) : (
